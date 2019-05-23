@@ -37,10 +37,23 @@ public class LoginPanel : UIBase {
 			(ushort)LoginEvent.Load
 		};
 		RegistSelf (this, msgIds);
+
+		GameObject testBtn = UIManager.Instance.GetGameObject ("TestButton");
+		testBtn.GetComponent<UIBehaviour> ().AddButtonListener (TestOnClick);
+		GameObject addBtn = UIManager.Instance.GetGameObject ("AddButton");
+		addBtn.GetComponent<UIBehaviour> ().AddButtonListener (AddOnClick);
 	}
 
 	void Update() {
 		if (loadState == ILoadState.Idle) {
 		}
+	}
+
+	private void TestOnClick() {
+		Debug.Log ("TestOnClick");
+	}
+
+	private void AddOnClick() {
+		Debug.Log ("AddOnClick");
 	}
 }

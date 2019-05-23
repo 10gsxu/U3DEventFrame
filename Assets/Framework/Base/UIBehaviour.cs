@@ -11,7 +11,15 @@ namespace U3DEventFrame {
 		//可以直接查找 物体， 把物体本身 注册到UIManager
 
 		void Awake () {
+			
+		}
+
+		void Start() {
 			UIManager.Instance.RegistGameObject (name, gameObject);
+		}
+
+		void OnDestroy() {
+			UIManager.Instance.UnRegistGameObject (name);
 		}
 
 		public void AddButtonListener(UnityAction action) {
