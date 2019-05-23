@@ -51,9 +51,13 @@ public class LoginPanel : UIBase {
 
 	private void TestOnClick() {
 		Debug.Log ("TestOnClick");
+		MsgBase walkFront = new MsgBase ((ushort)NpcEvent.WalkFront);
+		SendMsg (walkFront);
 	}
 
 	private void AddOnClick() {
 		Debug.Log ("AddOnClick");
+		MsgBase walkBack = new MsgBase ((ushort)NpcEvent.WalkBack);
+		SendMsg (walkBack);
 	}
 }
