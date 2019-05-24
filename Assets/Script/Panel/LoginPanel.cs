@@ -38,10 +38,12 @@ public class LoginPanel : UIBase {
 		};
 		RegistSelf (this, msgIds);
 
+		/*
 		GameObject testBtn = UIManager.Instance.GetGameObject ("TestButton");
 		testBtn.GetComponent<UIBehaviour> ().AddButtonListener (TestOnClick);
 		GameObject addBtn = UIManager.Instance.GetGameObject ("AddButton");
 		addBtn.GetComponent<UIBehaviour> ().AddButtonListener (AddOnClick);
+		*/
 	}
 
 	void Update() {
