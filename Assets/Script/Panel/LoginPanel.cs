@@ -31,19 +31,19 @@ public class LoginPanel : UIBase {
 		}
 	}
 
-	void Start() {
+	void Awake() {
 		msgIds = new ushort[] {
 			(ushort)LoginEvent.Idle,
 			(ushort)LoginEvent.Load
 		};
 		RegistSelf (this, msgIds);
+	}
 
-		/*
+	void Start() {
 		GameObject testBtn = UIManager.Instance.GetGameObject ("TestButton");
 		testBtn.GetComponent<UIBehaviour> ().AddButtonListener (TestOnClick);
 		GameObject addBtn = UIManager.Instance.GetGameObject ("AddButton");
 		addBtn.GetComponent<UIBehaviour> ().AddButtonListener (AddOnClick);
-		*/
 	}
 
 	void Update() {

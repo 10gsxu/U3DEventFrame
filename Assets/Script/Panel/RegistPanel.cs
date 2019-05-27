@@ -20,12 +20,16 @@ public class RegistPanel : UIBase {
 		}
 	}
 
-	void Start () {
+	void Awake() {
 		msgIds = new ushort[] {
 			(ushort)RegistEvent.Idle,
 			(ushort)RegistEvent.Load
 		};
 		RegistSelf (this, msgIds);
+	}
+
+	void Start () {
+		
 	}
 	
 	void Update () {
