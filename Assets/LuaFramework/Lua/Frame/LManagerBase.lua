@@ -12,6 +12,15 @@ function LManagerBase:RegistMsgs(script, msgs)
 end
 
 function LManagerBase:RegistMsg(id, eventNode)
+    if this:FindKey(self.eventTree, id) then
+        tmpNode = self.eventTree[id];
+        while tmpNode.next ~= nil do
+            tmpNode = tmpNode.next;
+        end
+        tmpNode.next = eventNode;
+    else
+        self.eventTree[id] = eventNode;
+    end
 end
 
 function LManagerBase:UnRegistMsgs(script, ...)
@@ -60,8 +69,14 @@ function LManagerBase:ProcessEvent (msg)
     end
 end
 
-function LManagerBase:FindKey (eventTree, id)
-
+-- 是否包含Key
+function LManagerBase:FindKey (dict, key)
+    for k, v in pairs(dict) do
+        if k == key then
+            return true;
+        end
+        return false;
+    end
 end
 
 function LManagerBase:Destroy()

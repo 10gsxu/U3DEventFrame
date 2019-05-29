@@ -1,5 +1,6 @@
-﻿print("LMsgCenter")
-LMsgCenter = {}
+﻿LMsgCenter = {
+    managerDict = {}
+}
 LMsgCenter.__index = LMsgCenter;
 local this = LMsgCenter;
 
@@ -10,7 +11,10 @@ function LMsgCenter:New(msgid)
 end
 
 function LMsgCenter:Awake()
-    LuaAndCMsgCenter.instance:SettingLuaCallBack(this.RecvMsg);
+    LuaEventProcess.Instance:SettingLuaCallBack(this.RecvMsg);
+    this.managerDict[LManagerID.LUIManager] = LUIManager;
+    --this.managerDict[LManagerID.LNetManager] = LNetManager;
+    --this.managerDict[LManagerID.LAudioManager] = LAudioManager;
 end
 
 function LMsgCenter:GetInstance()
@@ -21,6 +25,18 @@ function LMsgCenter:SendToMsg(msg)
     managerId = msg:GetManager();
 end
 
-function LMsgCenter:RecvMsg(arg1, arg2, arg3, arg4)
+function LMsgCenter:RecvMsg(fromNet, arg0, arg1, arg2)
+    if fromNet == true then
+        local tmpMsg = LMsgBase:New(arg0);
+        tmpMsg.state = arg1;
+        tmpMsg.data = arg2;
+        this.ProcessEvent(tmpMsg);
+    else
+        this.ProcessEvent(arg0);
+    end
+end
 
+function LMsgCenter:ProcessEvent(msg)
+    managerId = msg:GetManager();
+    this.managerDict[managerId].GetInstance().ProcessEvent(msg);
 end

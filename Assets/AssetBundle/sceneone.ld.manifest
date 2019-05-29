@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 1452990692
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ef217b43e02abcf28c794db29e5e8248
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0a9d000c67bb3b371a8c4e0fe8b14a8f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+Assets:
+- Assets/Art/Scenes/SceneOne/TestPrefab.prefab
+Dependencies: []
