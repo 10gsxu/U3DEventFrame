@@ -7,7 +7,7 @@ using LuaInterface;
 public class LuaUIBehaviour : MonoBehaviour {
 
 	void Awake () {
-		
+        CallMethod("LUIManager", "RegistGameObject", gameObject);
 	}
 
 	public void AddButtonListener(LuaFunction action) {
@@ -18,5 +18,14 @@ public class LuaUIBehaviour : MonoBehaviour {
 			});
 		}
 	}
+
+    /// <summary>
+    /// Calls the method.
+    /// </summary>
+    protected int CallMethod(string module, string func, GameObject args)
+    {
+        string funcName = module + "." + func;
+        return LuaClient.Instance.CallFuncWithGameObject(funcName, args);
+    }
 		
 }

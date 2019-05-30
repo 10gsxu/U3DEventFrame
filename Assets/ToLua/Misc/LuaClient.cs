@@ -143,6 +143,35 @@ public class LuaClient : MonoBehaviour
         CallMain();
     }
 
+    /*
+    public object[] CallFunction(string funcName, params object[] args)
+    {
+        LuaFunction func = luaState.GetFunction(funcName);
+        if(func != null)
+        {
+            return func.Call(args);
+        }
+        return null;
+    }
+    */
+
+    LuaFunction luaFunc = null;
+    public int CallFuncWithGameObject(string funcName, GameObject args)
+    {
+        luaFunc = luaState.GetFunction(funcName);
+        if(luaFunc != null)
+        {
+            luaFunc.BeginPCall();
+            luaFunc.Push(args);
+            luaFunc.PCall();
+            luaFunc.EndPCall();
+            luaState.CheckTop();
+            return 0;
+        }
+        luaState.CheckTop();
+        return 0;
+    }
+
     protected void StartLooper()
     {
         loop = gameObject.AddComponent<LuaLooper>();
