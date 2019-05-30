@@ -1,4 +1,4 @@
-﻿LEventNode = {
+LEventNode = {
     data = nil,
     next = nil
 }

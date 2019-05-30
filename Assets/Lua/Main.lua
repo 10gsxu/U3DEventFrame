@@ -1,3 +1,6 @@
+require "Frame.Define"
+require "Frame.LEventNode"
+
 --主入口函数。从这里开始lua逻辑
 function Main()					
 	print("logic start")	 		

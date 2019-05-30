@@ -1,1 +1,1 @@
-﻿print("New Lua")
+print("New Lua")

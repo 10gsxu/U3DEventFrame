@@ -1,4 +1,4 @@
-﻿LMsgBase = {
+LMsgBase = {
     msgId = 0
 }
 LMsgBase.__index = LMsgBase;
