@@ -116,8 +116,8 @@ public class LuaLoadRes {
         }
     }
 
-    private static CallBackManager callbackManager;
-    public static CallBackManager CBManager
+    private CallBackManager callbackManager;
+    public CallBackManager CBManager
     {
         get
         {
@@ -129,10 +129,72 @@ public class LuaLoadRes {
         }
     }
 
+    // sceneone/load.ld
+    void LoadingProgress(string bundleName, float progress)
+    {
+        if (progress > 1.0f)
+        {
+            //上层的回调
+            CBManager.CallBackRes(bundleName);
+            CBManager.Dispose(bundleName);
+        }
+    }
+
     public void GetResources(string sceneName, string bundleName, string resName, bool single, LuaFunction tmpFunc)
     {
-        if(!ILoadManager.Instance.IsLoadingAssetBundle(sceneName, bundleName)) {
+        //没有加载
+        if (!ILoadManager.Instance.IsLoadingAssetBundle(sceneName, bundleName))
+        {
+            ILoadManager.Instance.LoadAsset(sceneName, bundleName, LoadingProgress);
+            string bundleFullName = ILoadManager.Instance.GetBundleRelaName(sceneName, bundleName);
+            if (bundleFullName != null)
+            {
+                CallBackNode tmpNode = new CallBackNode(sceneName, bundleName, resName, tmpFunc, single, null);
 
+                //bundleName == Load
+                //bundleFullName == sceneone/load.ld
+
+                //链式结构，请求命令
+                CBManager.AddBundleCallBack(bundleFullName, tmpNode);
+            }
+            else
+            {
+                Debug.LogWarning("do not contain bundle ==" + bundleFullName);
+            }
         }
+        //表示已经加载完成
+        else if (ILoadManager.Instance.IsLoadingFinish(sceneName, bundleName))
+        {
+            if (single)
+            {
+                Object tmpObj = ILoadManager.Instance.GetSingleResource(sceneName, bundleName, resName);
+                tmpFunc.Call(sceneName, bundleName, resName, tmpObj);
+            }
+            else
+            {
+                Object[] tmpObj = ILoadManager.Instance.GetMutiResources(sceneName, bundleName, resName);
+                tmpFunc.Call(sceneName, bundleName, resName, tmpObj);
+            }
+        }
+        else
+        {
+            //表示已经加载，但是没有完成
+            //把命令存下来
+            string bundleFullName = ILoadManager.Instance.GetBundleRelaName(sceneName, bundleName);
+            if (bundleFullName != null)
+            {
+                CallBackNode tmpNode = new CallBackNode(sceneName, bundleName, resName, tmpFunc, single, null);
+                CBManager.AddBundleCallBack(bundleFullName, tmpNode);
+            }
+            else
+            {
+                Debug.LogWarning("do not contain bundle ==" + bundleFullName);
+            }
+        }
+    }
+
+    public void UnLoadResObj(string sceneName, string bundleName, string resName)
+    {
+        ILoadManager.Instance.UnLoadResObj(sceneName, bundleName, resName);
     }
 }
