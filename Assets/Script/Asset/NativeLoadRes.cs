@@ -179,6 +179,7 @@ public class NativeLoadRes : AssetBase {
 
     void GetResources(string sceneName, string bundleName, string resName, bool single, ushort backid)
     {
+        //没有加载
         if(!ILoadManager.Instance.IsLoadingAssetBundle(sceneName, bundleName))
         {
             ILoadManager.Instance.LoadAsset(sceneName, bundleName, LoadingProgress);
@@ -186,6 +187,11 @@ public class NativeLoadRes : AssetBase {
             if(bundleFullName != null)
             {
                 NativeResCallBackNode tmpNode = new NativeResCallBackNode(sceneName, bundleName, resName, backid, single, SendToBackMsg, null);
+
+                //bundleName == Load
+                //bundleFullName == sceneone/load.ld
+
+                //链式结构，请求命令
                 CallBackManager.AddBundle(bundleFullName, tmpNode);
             } else
             {

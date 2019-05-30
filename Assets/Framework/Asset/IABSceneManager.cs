@@ -35,6 +35,8 @@ public class IABSceneManager {
         {
             string tmpStr = br.ReadLine();
             string[] tmpArr = tmpStr.Split(" ".ToCharArray());
+            //bundleName -- bundleFullName
+            //Load -- sceneone/load.ld
             allAsset.Add(tmpArr[0], tmpArr[1]);
         }
         br.Close();

@@ -17,8 +17,10 @@ public class AssetObj
     {
         for(int i=0; i<objs.Count; ++i)
         {
-            Resources.UnloadAsset(objs[i]);
+            if(objs[i].GetType() != typeof(UnityEngine.GameObject))
+                Resources.UnloadAsset(objs[i]);
         }
+        objs.Clear();
     }
 }
 //多个存取
