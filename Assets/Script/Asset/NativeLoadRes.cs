@@ -12,7 +12,7 @@ public class NativeResCallBackNode
     public string resName;
     public string bundleName;
     public string sceneName;
-    public ushort msgId;
+    public ushort backMsgId;
     public bool isSingle;
 
     public NativeResCallBackNode(string scene, string bundle, string res, ushort msgid, bool single, NativeResCallBack tmpBack, NativeResCallBackNode tmpValue)
@@ -20,7 +20,7 @@ public class NativeResCallBackNode
         this.sceneName = scene;
         this.bundleName = bundle;
         this.resName = res;
-        this.msgId = msgid;
+        this.backMsgId = msgid;
         this.isSingle = single;
         this.callBack = tmpBack;
         this.nextValue = tmpValue;
@@ -125,9 +125,102 @@ public class NativeLoadRes : AssetBase {
         };
     }
 
-    void GetResources(string scene, string bundle, string res, bool single, ushort msgid)
+    HunkAssetResBack resBackMsg = null;
+    HunkAssetResBack ReleaseBack
     {
+        get
+        {
+            if(resBackMsg == null)
+            {
+                resBackMsg = new HunkAssetResBack();
+            }
+            return this.resBackMsg;
+        }
+    }
 
+    NativeResCallBackManager callBackManager = null;
+    NativeResCallBackManager CallBackManager
+    {
+        get
+        {
+            if (callBackManager == null)
+            {
+                callBackManager = new NativeResCallBackManager();
+            }
+            return this.callBackManager;
+        }
+    }
+
+    public void SendToBackMsg(NativeResCallBackNode tmpNode)
+    {
+        if(tmpNode.isSingle)
+        {
+            UnityEngine.Object tmpObj = ILoadManager.Instance.GetSingleResource(tmpNode.sceneName, tmpNode.bundleName, tmpNode.resName);
+            this.ReleaseBack.Changer(tmpNode.backMsgId, tmpObj);
+            SendMsg(ReleaseBack);
+        } else
+        {
+            UnityEngine.Object[] tmpObj = ILoadManager.Instance.GetMutiResources(tmpNode.sceneName, tmpNode.bundleName, tmpNode.resName);
+            this.ReleaseBack.Changer(tmpNode.backMsgId, tmpObj);
+            SendMsg(ReleaseBack);
+        }
+    }
+
+    // sceneone/load.ld
+    void LoadingProgress(string bundleName, float progress)
+    {
+        if(progress > 1.0f)
+        {
+            //上层的回调
+            CallBackManager.ResCallBack(bundleName);
+            CallBackManager.Dispose();
+        }
+    }
+
+    void GetResources(string sceneName, string bundleName, string resName, bool single, ushort backid)
+    {
+        if(!ILoadManager.Instance.IsLoadingAssetBundle(sceneName, bundleName))
+        {
+            ILoadManager.Instance.LoadAsset(sceneName, bundleName, LoadingProgress);
+            string bundleFullName = ILoadManager.Instance.GetBundleRelaName(sceneName, bundleName);
+            if(bundleFullName != null)
+            {
+                NativeResCallBackNode tmpNode = new NativeResCallBackNode(sceneName, bundleName, resName, backid, single, SendToBackMsg, null);
+                CallBackManager.AddBundle(bundleFullName, tmpNode);
+            } else
+            {
+                Debug.LogWarning("do not contain bundle ==" + bundleFullName);
+            }
+        }
+        //表示已经加载完成
+        else if(ILoadManager.Instance.IsLoadingFinish(sceneName, bundleName))
+        {
+            if(single)
+            {
+                Object tmpObj = ILoadManager.Instance.GetSingleResource(sceneName, bundleName, resName);
+                this.ReleaseBack.Changer(backid, tmpObj);
+                SendMsg(ReleaseBack);
+            } else
+            {
+                Object[] tmpObj = ILoadManager.Instance.GetMutiResources(sceneName, bundleName, resName);
+                this.ReleaseBack.Changer(backid, tmpObj);
+                SendMsg(ReleaseBack);
+            }
+        } else
+        {
+            //表示已经加载，但是没有完成
+            //把命令存下来
+            string bundleFullName = ILoadManager.Instance.GetBundleRelaName(sceneName, bundleName);
+            if (bundleFullName != null)
+            {
+                NativeResCallBackNode tmpNode = new NativeResCallBackNode(sceneName, bundleName, resName, backid, single, SendToBackMsg, null);
+                CallBackManager.AddBundle(bundleFullName, tmpNode);
+            }
+            else
+            {
+                Debug.LogWarning("do not contain bundle ==" + bundleFullName);
+            }
+        }
     }
 
     public override void ProcessEvent(MsgBase tmpMsg)
@@ -135,10 +228,16 @@ public class NativeLoadRes : AssetBase {
         switch(tmpMsg.msgId)
         {
             case (ushort)AssetEvent.HunkRes:
-
+                {
+                    HunkAssetRes tmpHunkMsg = (HunkAssetRes)tmpMsg;
+                    GetResources(tmpHunkMsg.sceneName, tmpHunkMsg.bundleName, tmpHunkMsg.resName, tmpHunkMsg.isSingle, tmpHunkMsg.backMsgId);
+                }
                 break;
             case (ushort)AssetEvent.ReleaseSingleObj:
-
+                {
+                    HunkAssetRes tmpHunkMsg = (HunkAssetRes)tmpMsg;
+                    ILoadManager.Instance.UnLoadResObj(tmpHunkMsg.sceneName, tmpHunkMsg.bundleName, tmpHunkMsg.resName);
+                }
                 break;
             case (ushort)AssetEvent.ReleaseBundleObjes:
 
@@ -147,13 +246,19 @@ public class NativeLoadRes : AssetBase {
 
                 break;
             case (ushort)AssetEvent.ReleaseSingleBundle:
-
+                {
+                    HunkAssetRes tmpHunkMsg = (HunkAssetRes)tmpMsg;
+                    ILoadManager.Instance.UnLoadAssetBundle(tmpHunkMsg.sceneName, tmpHunkMsg.bundleName);
+                }
                 break;
             case (ushort)AssetEvent.ReleaseSceneBundle:
 
                 break;
             case (ushort)AssetEvent.ReleaseAll:
-
+                {
+                    HunkAssetRes tmpHunkMsg = (HunkAssetRes)tmpMsg;
+                    ILoadManager.Instance.UnLoadAllAssetBundleAndResObjs(tmpHunkMsg.sceneName);
+                }
                 break;
         }
     }

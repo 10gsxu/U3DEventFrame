@@ -144,5 +144,43 @@ public class IABSceneManager {
             abManager.DebugAssetBundle(allAsset[keys[i]]);
         }
     }
+
+    public bool IsLoadingFinish(string bundleName)
+    {
+        if (allAsset.ContainsKey(bundleName))
+        {
+            return abManager.IsLoadingFinish(allAsset[bundleName]);
+        }
+        else
+        {
+            Debug.Log("is not contain bundle == " + bundleName);
+        }
+        return false;
+    }
+
+    public bool IsLoadingAssetBundle(string bundleName)
+    {
+        if (allAsset.ContainsKey(bundleName))
+        {
+            return abManager.IsLoadingAssetBundle(allAsset[bundleName]);
+        }
+        else
+        {
+            Debug.Log("is not contain bundle == " + bundleName);
+        }
+        return false;
+    }
+
+    public string GetBundleRelaName(string bundleName)
+    {
+        if (allAsset.ContainsKey(bundleName))
+        {
+            return allAsset[bundleName];
+        }
+        else
+        {
+            return null;
+        }
+    }
     #endregion
 }

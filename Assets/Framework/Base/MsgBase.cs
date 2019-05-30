@@ -12,6 +12,11 @@ namespace U3DEventFrame {
 			return (ManagerID)(tmpId * FrameTools.MsgSpan);
 		}
 
+        public MsgBase()
+        {
+            msgId = 0;
+        }
+
 		public MsgBase(ushort tmpMsg) {
 			msgId = tmpMsg;
 		}

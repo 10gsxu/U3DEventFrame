@@ -55,6 +55,17 @@ public class ILoadManager : MonoBehaviour {
     }
 
     #region 由下层API提供
+    public string GetBundleRelaName(string sceneName, string bundleName)
+    {
+        IABSceneManager tmpManager = loadManager[sceneName];
+        if(tmpManager != null)
+        {
+            return tmpManager.GetBundleRelaName(bundleName);
+        } else
+        {
+            return null;
+        }
+    }
     /// <summary>
     /// Gets the single resource.
     /// </summary>
@@ -152,5 +163,28 @@ public class ILoadManager : MonoBehaviour {
             IABSceneManager tmpManager = loadManager[sceneName];
             tmpManager.DebugAllAsset();
         }
+    }
+
+    public bool IsLoadingFinish(string sceneName, string bundleName)
+    {
+        bool tmpBool = loadManager.ContainsKey(sceneName);
+        if (tmpBool)
+        {
+            IABSceneManager tmpManager = loadManager[sceneName];
+            return tmpManager.IsLoadingFinish(bundleName);
+        }
+        return false;
+    }
+
+    public bool IsLoadingAssetBundle(string sceneName, string bundleName)
+    {
+        bool tmpBool = loadManager.ContainsKey(sceneName);
+        if(tmpBool)
+        {
+            IABSceneManager tmpManager = loadManager[sceneName];
+            return tmpManager.IsLoadingAssetBundle(bundleName);
+        }
+        return false;
+    }
     #endregion
 }

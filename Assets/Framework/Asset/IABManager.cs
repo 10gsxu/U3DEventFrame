@@ -82,6 +82,19 @@ public class IABManager {
         this.sceneName = sceneName;
     }
 
+    public bool IsLoadingFinish(string bundleName)
+    {
+        if (loadHelper.ContainsKey(bundleName))
+        {
+            IABRelationManager tmpManager = loadHelper[bundleName];
+            return tmpManager.IsBundleLoadFinish();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     //表示是否加载了Bundle
     public bool IsLoadingAssetBundle(string bundleName)
     {
