@@ -39,14 +39,14 @@ class MyDoCreateScriptAsset:EndNameEditAction{
 		string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(pathName);
 		text = Regex.Replace(text, "#NAME#", fileNameWithoutExtension);
 
-		bool encoderShouldEmitUTF8Identifier = true;
+		bool encoderShouldEmitUTF8Identifier = false;
 		bool throwOnInvalidBytes = false;
 		UTF8Encoding encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier, throwOnInvalidBytes);
 		bool append = false;
 		StreamWriter streamWriter = new StreamWriter(fullPath, append, encoding);
 		streamWriter.Write(text);
 		streamWriter.Close();
-		AssetDatabase.ImportAsset(pathName);
+        AssetDatabase.ImportAsset(pathName);
 		return AssetDatabase.LoadAssetAtPath(pathName,typeof(UnityEngine.Object));
 	}
 }
