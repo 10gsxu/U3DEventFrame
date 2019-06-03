@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MainOther : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
-		
+        LuaAndCMsgCenter landcCenter = gameObject.AddComponent<LuaAndCMsgCenter>();
+        LuaEventProcess.Instance.setMonoChild(landcCenter);
+
+        gameObject.AddComponent<NativeLoadRes>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

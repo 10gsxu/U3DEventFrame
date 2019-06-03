@@ -1,5 +1,9 @@
 require "Frame.Define"
+require "Frame.LMsgBase"
 require "Frame.LEventNode"
+require "Frame.LManagerBase"
+require "Frame.LUIManager"
+require "Frame.LMsgCenter"
 
 --主入口函数。从这里开始lua逻辑
 function Main()					

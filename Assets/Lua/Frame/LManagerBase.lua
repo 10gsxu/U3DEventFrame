@@ -1,8 +1,16 @@
-
 LManagerBase = {
     eventTree = {}
 };
 local this = LManagerBase;
+
+function LManagerBase:New()
+    local self = {};
+    setmetatable(self, LManagerBase);
+
+    self.eventTree = {};
+
+    return self;
+end
 
 function LManagerBase:RegistMsgs(script, msgs)
     for i, v in pairs(msgs) do

@@ -40,7 +40,7 @@ public class LuaAndCMsgCenter : MonoBase {
         }
     }
 
-    public void SettingLuaCallBack(LuaFunction luaFunc )
+    public void SettingLuaCallBack(LuaFunction luaFunc)
     {
         callBack = luaFunc;
     }

@@ -123,6 +123,7 @@ public class NativeLoadRes : AssetBase {
             (ushort)AssetEvent.ReleaseSceneBundle,
             (ushort)AssetEvent.ReleaseAll,
         };
+        RegistSelf(this, msgIds);
     }
 
     HunkAssetResBack resBackMsg = null;

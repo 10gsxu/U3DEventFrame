@@ -1,5 +1,3 @@
-﻿print("LUIManager")
-
 LUIManager = LManagerBase:New()
 LUIManager.__index = LUIManager;
 local this = LUIManager;

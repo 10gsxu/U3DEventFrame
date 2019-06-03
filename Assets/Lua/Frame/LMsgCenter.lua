@@ -1,4 +1,4 @@
-﻿LMsgCenter = {
+LMsgCenter = {
     managerDict = {}
 }
 LMsgCenter.__index = LMsgCenter;
