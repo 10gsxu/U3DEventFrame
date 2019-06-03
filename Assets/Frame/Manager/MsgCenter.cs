@@ -26,7 +26,7 @@ namespace U3DEventFrame {
                 Debug.LogError("Manager不存在");
                 return;
             }
-            baseManager.SendMsg(msg);
+            baseManager.ProcessEvent(msg);
         }
 
 	}

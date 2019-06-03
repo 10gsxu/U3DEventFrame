@@ -30,3 +30,7 @@ function LAssetBundleLoader:ProcessEvent(msg)
         LuaLoadRes.Instance:UnLoadResObj(msg.sceneName, msg.bundleName, msg.resName);
     end
 end
+
+function LAssetBundleLoader.Destroy()
+    this.UnRegistSelf(this, self.msgId);
+end

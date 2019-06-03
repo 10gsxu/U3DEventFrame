@@ -11,7 +11,7 @@ function LMsgCenter:New(msgid)
 end
 
 function LMsgCenter:Awake()
-    LuaEventProcess.Instance:SettingLuaCallBack(this.RecvMsg);
+    LuaAndCMsgCenter.Instance:SettingLuaCallBack(this.RecvMsg);
     this.managerDict[LManagerID.LUIManager] = LUIManager;
     --this.managerDict[LManagerID.LNetManager] = LNetManager;
     --this.managerDict[LManagerID.LAudioManager] = LAudioManager;
@@ -38,5 +38,10 @@ end
 
 function LMsgCenter:ProcessEvent(msg)
     managerId = msg:GetManager();
-    this.managerDict[managerId].GetInstance().ProcessEvent(msg);
+    curManager = this.managerDict[managerId];
+    if curManager == nil then
+        curManager.GetInstance().ProcessEvent(msg);
+    else
+        MsgCenter.Instance.ProcessEvent(msg);
+    end
 end
