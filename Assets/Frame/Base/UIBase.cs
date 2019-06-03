@@ -29,5 +29,10 @@ namespace U3DEventFrame {
 				UnRegistSelf (this, msgIds);
 			}
 		}
+
+        public T GetUIComponent<T>(string objName)
+        {
+            return UIManager.Instance.GetGameObject(objName).GetComponent<T>();
+        }
 	}
 }

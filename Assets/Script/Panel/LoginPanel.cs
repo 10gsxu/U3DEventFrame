@@ -40,10 +40,8 @@ public class LoginPanel : UIBase {
 	}
 
 	void Start() {
-		GameObject testBtn = UIManager.Instance.GetGameObject ("TestButton");
-		testBtn.GetComponent<UIBehaviour> ().AddButtonListener (TestOnClick);
-		GameObject addBtn = UIManager.Instance.GetGameObject ("AddButton");
-		addBtn.GetComponent<UIBehaviour> ().AddButtonListener (AddOnClick);
+		GetUIComponent<UIBehaviour> ("TestButton").AddButtonListener (TestOnClick);
+        GetUIComponent<UIBehaviour> ("AddButton").AddButtonListener (AddOnClick);
 	}
 
 	void Update() {
