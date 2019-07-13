@@ -37,6 +37,6 @@ sysinfo.txt
 
 PlayerData
 SettingData
-Assets/LuaFramework/ToLua/Source/Generate/
+Assets/Source/Generate/
 luaframework/
 !Assets/LuaFramework/
