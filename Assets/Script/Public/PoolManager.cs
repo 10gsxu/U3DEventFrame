@@ -32,7 +32,7 @@ public class PoolManager : SingletonBase<PoolManager>
         Queue<Transform> itemQueue = itemDict[keyName];
         if(itemQueue.Count <= 0)
         {
-            GameObject asset = AssetManager.Instance.LoadAsset<GameObject>(sceneName, bundleName, resName);
+            GameObject asset = ResourceManager.Instance.LoadAsset<GameObject>(sceneName, bundleName, resName);
             itemQueue.Enqueue(Object.Instantiate(asset).transform);
         }
         Transform itemTran = itemQueue.Dequeue();

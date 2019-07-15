@@ -6,6 +6,7 @@ using UnityEditor;
 using U3DEventFrame;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using LeoHui;
 
 using BindType = ToLuaMenu.BindType;
 using System.Reflection;
@@ -156,6 +157,7 @@ public static class CustomSettings
 
         _GT(typeof(Image)),
         _GT(typeof(SceneManager)),
+        _GT(typeof(ResourceManager)),
         _GT(typeof(LuaUIBehaviour)),
         _GT(typeof(LuaAndCMsgCenter)),
         _GT(typeof(MsgCenter)),

@@ -7,6 +7,11 @@ using LeoHui;
 
 public class LuaLoader : MonoBehaviour
 {
+    private void Awake()
+    {
+        LuaFileUtils.Instance.beZip = UpdateConfig.Instance.LuaBundleMode;
+    }
+
     /// <summary>
     /// 添加打入Lua代码的AssetBundle
     /// </summary>

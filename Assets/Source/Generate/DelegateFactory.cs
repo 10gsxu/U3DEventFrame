@@ -35,6 +35,7 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode);
 		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
 		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
+		dict.Add(typeof(LeoHui.LoadFinish), factory.LeoHui_LoadFinish);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
 		DelegateTraits<UnityEngine.Events.UnityAction>.Init(factory.UnityEngine_Events_UnityAction);
@@ -54,6 +55,7 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode);
 		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
 		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
+		DelegateTraits<LeoHui.LoadFinish>.Init(factory.LeoHui_LoadFinish);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
 		TypeTraits<UnityEngine.Events.UnityAction>.Init(factory.Check_UnityEngine_Events_UnityAction);
@@ -73,6 +75,7 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode);
 		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
 		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
+		TypeTraits<LeoHui.LoadFinish>.Init(factory.Check_LeoHui_LoadFinish);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
 		StackTraits<UnityEngine.Events.UnityAction>.Push = factory.Push_UnityEngine_Events_UnityAction;
@@ -92,6 +95,7 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode;
 		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene;
 		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene;
+		StackTraits<LeoHui.LoadFinish>.Push = factory.Push_LeoHui_LoadFinish;
 	}
     
     public static Delegate CreateDelegate(Type t, LuaFunction func = null)
@@ -1241,6 +1245,63 @@ public class DelegateFactory
 	}
 
 	void Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene(IntPtr L, UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class LeoHui_LoadFinish_Event : LuaDelegate
+	{
+		public LeoHui_LoadFinish_Event(LuaFunction func) : base(func) { }
+		public LeoHui_LoadFinish_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(string param0)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(string param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public LeoHui.LoadFinish LeoHui_LoadFinish(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			LeoHui.LoadFinish fn = delegate(string param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			LeoHui_LoadFinish_Event target = new LeoHui_LoadFinish_Event(func);
+			LeoHui.LoadFinish d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			LeoHui_LoadFinish_Event target = new LeoHui_LoadFinish_Event(func, self);
+			LeoHui.LoadFinish d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_LeoHui_LoadFinish(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(LeoHui.LoadFinish), L, pos);
+	}
+
+	void Push_LeoHui_LoadFinish(IntPtr L, LeoHui.LoadFinish o)
 	{
 		ToLua.Push(L, o);
 	}

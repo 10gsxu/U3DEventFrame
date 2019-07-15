@@ -7,9 +7,9 @@ using UnityEditor;
 
 namespace LeoHui
 {
-    public class AssetManager : MonoBehaviour
+    public class ResourceManager : MonoBehaviour
     {
-        public static AssetManager Instance;
+        public static ResourceManager Instance;
         private ABSceneManager sceneManager;
         private AssetType assetType = AssetType.None;
 

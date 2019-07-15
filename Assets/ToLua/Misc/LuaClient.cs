@@ -73,6 +73,8 @@ public class LuaClient : MonoBehaviour
         {
             OpenZbsDebugger();
         }
+
+        OpenCJson();
     }
 
     public void OpenZbsDebugger(string ip = "localhost")

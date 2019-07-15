@@ -25,7 +25,7 @@ MsgCenter = U3DEventFrame.MsgCenter;
 MsgBase = U3DEventFrame.MsgBase;
 StringMsg = U3DEventFrame.StringMsg;
 
-AssetLoader = LuaLoadRes.Instance;
+ResourceManager = LeoHui.ResourceManager.Instance;
 
 BundleList = {
 	"audio",

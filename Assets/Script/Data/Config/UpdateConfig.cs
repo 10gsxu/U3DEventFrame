@@ -29,4 +29,6 @@ public class UpdateConfig : ScriptableObject
     public string AppName = "CarDrift";
     [Header("AssetBundle后缀")]
     public string ExtName = "ab";
+    [Header("LuaBundle模式")]
+    public bool LuaBundleMode = false;
 }
