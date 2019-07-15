@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 public class PythonTools {
-
+    /*
     [MenuItem("Itools/TestPython1")]
     public static void TestPython1()
     {
@@ -31,4 +31,5 @@ public class PythonTools {
         string argss = shell + " " + arg1 + " " + arg2;
         System.Diagnostics.Process.Start("/bin/bash", argss);
     }
+    */
 }

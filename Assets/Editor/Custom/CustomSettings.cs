@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using LuaInterface;
 using UnityEditor;
 using U3DEventFrame;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 using BindType = ToLuaMenu.BindType;
 using System.Reflection;
@@ -152,6 +154,8 @@ public static class CustomSettings
         _GT(typeof(Resources)),     
         _GT(typeof(LuaProfiler)),
 
+        _GT(typeof(Image)),
+        _GT(typeof(SceneManager)),
         _GT(typeof(LuaUIBehaviour)),
         _GT(typeof(LuaAndCMsgCenter)),
         _GT(typeof(MsgCenter)),
