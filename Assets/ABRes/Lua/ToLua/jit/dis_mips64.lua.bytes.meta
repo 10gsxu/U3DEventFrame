@@ -1,0 +1,7 @@
+fileFormatVersion: 2
+guid: d32f19258e1034be796c2bd822bed4f4
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: lua/tolua
+  assetBundleVariant: ab

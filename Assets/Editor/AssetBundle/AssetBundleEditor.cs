@@ -47,6 +47,7 @@ namespace LeoHui
                 EditorGUILayout.Space();
                 if (GUILayout.Button("Set AssetBundleName"))
                 {
+                    CopyLuaFolder();
                     SetAssetBundleName();
                 }
             }
@@ -230,7 +231,7 @@ namespace LeoHui
             }
             else
             {
-                tmpImporterObj.assetBundleVariant = UpdateConfig.Instance.ExtName;
+                tmpImporterObj.assetBundleVariant = "ab";
             }
         }
 
@@ -276,6 +277,38 @@ namespace LeoHui
             }
 
             return strABName;
+        }
+        #endregion
+
+        #region 拷贝Lua文件夹
+        private void CopyLuaFolder()
+        {
+            string toLuaSourceDirPath = Application.dataPath + "/ToLua/Lua";
+            string toLuaDestDirPath = PathTools.ABResPath + "/Lua/ToLua";
+            CopyLuaBytesFiles(toLuaSourceDirPath, toLuaDestDirPath);
+            string luaSourceDirPath = Application.dataPath + "/Lua";
+            string luaDestDirPath = PathTools.ABResPath + "/Lua/Lua";
+            CopyLuaBytesFiles(luaSourceDirPath, luaDestDirPath);
+            AssetDatabase.Refresh();
+        }
+
+        private void CopyLuaBytesFiles(string sourceDir, string destDir)
+        {
+            if (!Directory.Exists(sourceDir))
+                return;
+            string searchPattern = "*.lua";
+            SearchOption searchOption = SearchOption.AllDirectories;
+            string[] files = Directory.GetFiles(sourceDir, searchPattern, searchOption);
+            for(int i=0; i<files.Length; ++i)
+            {
+                string fileName = files[i].Replace(sourceDir, "");
+                string destPath = destDir + "/" + fileName;
+                destPath += ".bytes";
+                string dirName = Path.GetDirectoryName(destPath);
+                if (!Directory.Exists(dirName))
+                    Directory.CreateDirectory(dirName);
+                File.Copy(files[i], destPath, true);
+            }
         }
         #endregion
 

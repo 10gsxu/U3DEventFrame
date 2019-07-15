@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+CRC: 3096104340
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: public/sprite.ab
+      Dependencies: {}
+    Info_1:
+      Name: public/car.ab
+      Dependencies: {}
+    Info_2:
+      Name: public/font.ab
+      Dependencies: {}
+    Info_3:
+      Name: public/audio.ab
+      Dependencies: {}
+    Info_4:
+      Name: public/data.ab
+      Dependencies: {}
+    Info_5:
+      Name: public/uipanel.ab
+      Dependencies:
+        Dependency_0: public/sprite.ab
+        Dependency_1: public/car.ab
+    Info_6:
+      Name: public/uiitem.ab
+      Dependencies:
+        Dependency_0: public/sprite.ab
+        Dependency_1: public/car.ab
+    Info_7:
+      Name: lua/tolua.ab
+      Dependencies: {}
+    Info_8:
+      Name: lua/lua.ab
+      Dependencies: {}
