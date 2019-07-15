@@ -1,0 +1,56 @@
+ManifestFileVersion: 0
+CRC: 2081975457
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5f9472849e9a998cabf78bb723b21639
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/ABRes/Lua/Lua/UI/CarItem.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LUIManager.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/SeatItem.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LUIEvent.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LMsgBase.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Csv/UserLevelData.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/WinPanel.lua.bytes
+- Assets/ABRes/Lua/Lua/Public/GameObjectFactory.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/Define.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Csv/LanguageData.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/GamePanel.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Json/SettingData.lua.bytes
+- Assets/ABRes/Lua/Lua/Public/SoundName.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LGameEvent.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/PanelController.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/ShopItem.lua.bytes
+- Assets/ABRes/Lua/Lua/3rd/cjson/test.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/ShopPanel.lua.bytes
+- Assets/ABRes/Lua/Lua/Main.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LUIBase.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Csv/ICsvData.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/Debug.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LMsgCenter.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Csv/CarData.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Json/PlayerData.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/LosePanel.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LEventNode.lua.bytes
+- Assets/ABRes/Lua/Lua/3rd/cjson/json2lua.lua.bytes
+- Assets/ABRes/Lua/Lua/Public/Util.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LManagerBase.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Json/IJsonData.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/RankPanel.lua.bytes
+- Assets/ABRes/Lua/Lua/3rd/cjson/util.lua.bytes
+- Assets/ABRes/Lua/Lua/Frame/LPanelMsg.lua.bytes
+- Assets/ABRes/Lua/Lua/Public/EventHandler.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Json/PositionData.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/SeatPanel.lua.bytes
+- Assets/ABRes/Lua/Lua/UI/MainPanel.lua.bytes
+- Assets/ABRes/Lua/Lua/Data/Csv/AchievementData.lua.bytes
+- Assets/ABRes/Lua/Lua/3rd/cjson/lua2json.lua.bytes
+- Assets/ABRes/Lua/Lua/Public/AudioManager.lua.bytes
+Dependencies: []

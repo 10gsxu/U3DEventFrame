@@ -49,7 +49,7 @@ namespace LuaInterface
         }
 
         //beZip = false 在search path 中查找读取lua文件。否则从外部设置过来bundel文件中读取lua文件
-        public bool beZip = false;
+        public bool beZip = true;
         protected List<string> searchPaths = new List<string>();
         protected Dictionary<string, AssetBundle> zipMap = new Dictionary<string, AssetBundle>();
 
@@ -227,6 +227,7 @@ namespace LuaInterface
             byte[] buffer = null;
             string zipName = null;
 
+            /*
             using (CString.Block())
             {
                 CString sb = CString.Alloc(256);
@@ -250,6 +251,27 @@ namespace LuaInterface
 #endif
                 zipName = sb.ToString();
                 zipMap.TryGetValue(zipName, out zipFile);
+            }
+            */
+            
+            if (!fileName.EndsWith(".lua"))
+            {
+                fileName += ".lua";
+            }
+            fileName += ".bytes";
+            if(fileName.Contains("/"))
+            {
+                fileName = fileName.Substring(fileName.LastIndexOf("/") + 1);
+            }
+            //Debug.Log(fileName);
+            foreach (KeyValuePair<string, AssetBundle> iter in zipMap)
+            {
+                if (iter.Value.Contains(fileName))
+                {
+                    zipName = iter.Key;
+                    zipMap.TryGetValue(zipName, out zipFile);
+                    break;
+                }
             }
 
             if (zipFile != null)

@@ -39,6 +39,7 @@ public class LuaClient : MonoBehaviour
 
     protected LuaState luaState = null;
     protected LuaLooper loop = null;
+    protected LuaLoader loader = null;
     protected LuaFunction levelLoaded = null;
 
     protected bool openLuaSocket = false;
@@ -178,6 +179,16 @@ public class LuaClient : MonoBehaviour
         loop.luaState = luaState;
     }
 
+    protected void StartLoader()
+    {
+        loader = gameObject.AddComponent<LuaLoader>();
+        if (LuaFileUtils.Instance.beZip)
+        {
+            loader.AddBundle("lua/tolua.ab");
+            loader.AddBundle("lua/lua.ab");
+        }
+    }
+
     protected virtual void Bind()
     {        
         LuaBinder.Bind(luaState);
@@ -207,6 +218,7 @@ public class LuaClient : MonoBehaviour
 
     protected virtual void OnLoadFinished()
     {
+        StartLoader();
         luaState.Start();
         StartLooper();
         StartMain();        
