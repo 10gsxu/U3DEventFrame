@@ -4,44 +4,29 @@ LMsgCenter = {
 LMsgCenter.__index = LMsgCenter;
 local this = LMsgCenter;
 
-function LMsgCenter:New(msgid)
-    local self = {};
-    setmetatable(self, LMsgCenter);
-    return self;
-end
-
-function LMsgCenter:Awake()
+function LMsgCenter.Awake()
+    --绑定C#发送Msg到Lua中的回调函数
     LuaAndCMsgCenter.Instance:SettingLuaCallBack(this.RecvMsg);
     this.managerDict[LManagerID.LUIManager] = LUIManager;
-    --this.managerDict[LManagerID.LNetManager] = LNetManager;
-    --this.managerDict[LManagerID.LAudioManager] = LAudioManager;
+    this.managerDict[LManagerID.LAssetManager] = LAssetManager;
+    this.managerDict[LManagerID.LDataManager] = LDataManager;
 end
 
-function LMsgCenter:GetInstance()
-    return this;
+function LMsgCenter.SendMsg(msg)
+    this.ProcessEvent(msg);
 end
 
-function LMsgCenter:SendToMsg(msg)
-    managerId = msg:GetManager();
+function LMsgCenter.RecvMsg(msg)
+    --C# Msg, 在各自的Manger中自行解析
+    this.ProcessEvent(msg);
 end
 
-function LMsgCenter:RecvMsg(fromNet, arg0, arg1, arg2)
-    if fromNet == true then
-        local tmpMsg = LMsgBase:New(arg0);
-        tmpMsg.state = arg1;
-        tmpMsg.data = arg2;
-        this.ProcessEvent(tmpMsg);
+--msg,有可能是C#Msg,也有可能是LuaMsg
+function LMsgCenter.ProcessEvent(msg)
+    if msg.msgId < MsgStart then
+        curManager = this.managerDict[msg:GetManager()];
+        curManager:ProcessEvent(msg);
     else
-        this.ProcessEvent(arg0);
-    end
-end
-
-function LMsgCenter:ProcessEvent(msg)
-    managerId = msg:GetManager();
-    curManager = this.managerDict[managerId];
-    if curManager == nil then
-        curManager.GetInstance().ProcessEvent(msg);
-    else
-        MsgCenter.Instance.ProcessEvent(msg);
+        MsgCenter.Instance:ProcessEvent(msg);
     end
 end

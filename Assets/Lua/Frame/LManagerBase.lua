@@ -1,6 +1,7 @@
 LManagerBase = {
     eventTree = {}
 };
+LManagerBase.__index = LManagerBase;
 local this = LManagerBase;
 
 function LManagerBase:New()
@@ -67,10 +68,8 @@ function LManagerBase:ProcessEvent (msg)
     if this:FindKey(self.eventTree, msg.msgId) then
         local tmpNode = self.eventTree[msg.msgId];
         while tmpNode ~= nil do
-            tmpNode.value:ProcessEvent(msg);
-            if tmpNode.next ~= nil then
-                tmpNode = tmpNode.next;
-            end
+            tmpNode.data:ProcessEvent(msg);
+            tmpNode = tmpNode.next;
         end
     else
         print("Msg not contain msg ==="..msg.msgId);
@@ -83,8 +82,8 @@ function LManagerBase:FindKey (dict, key)
         if k == key then
             return true;
         end
-        return false;
     end
+    return false;
 end
 
 function LManagerBase:Destroy()

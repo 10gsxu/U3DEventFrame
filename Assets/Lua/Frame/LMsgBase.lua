@@ -11,6 +11,11 @@ function LMsgBase:New (msgid)
 end
 
 function LMsgBase:GetManager()
-    tmpId = math.floor(self.msgId/MsgSpan)*MsgSpan;
-    return math.ceil(tmpId);
+    if self.msgId > MsgStart then
+        local tmpId = math.floor((self.msgId - MsgStart) / MsgSpan * MsgSpan);
+        return math.ceil(tmpId);
+    else
+        local tmpId = math.floor(self.msgId/MsgSpan)*MsgSpan;
+        return math.ceil(tmpId);
+    end
 end
